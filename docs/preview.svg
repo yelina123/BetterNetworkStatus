@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="620" height="200" viewBox="0 0 620 200">
+  <defs>
+    <style>
+      .bg { fill: #1E1E1E; }
+      .lbl { font-family: 'Segoe UI', sans-serif; font-size: 13px; fill: #9E9E9E; }
+      .num { font-family: Consolas, monospace; font-size: 16px; font-weight: bold; }
+    </style>
+  </defs>
+
+  <!-- 背景 -->
+  <rect class="bg" x="0" y="0" width="620" height="200" rx="16"/>
+
+  <!-- ===== 组1：优秀 <50ms，3根亮绿 + 12ms ===== -->
+  <rect x="36"  y="114" width="18" height="36" rx="6" fill="#32CD32"/>
+  <rect x="66"  y="90"  width="18" height="60" rx="6" fill="#32CD32"/>
+  <rect x="96"  y="66"  width="18" height="84" rx="6" fill="#32CD32"/>
+  <text class="num" x="135" y="110" fill="#32CD32">12ms</text>
+  <text class="lbl" x="36" y="175">优秀 &lt; 50ms</text>
+
+  <!-- ===== 组2：一般 100-300ms，2根橙 + 1根灰 + 156ms ===== -->
+  <rect x="236" y="114" width="18" height="36" rx="6" fill="#FFA500"/>
+  <rect x="266" y="90"  width="18" height="60" rx="6" fill="#FFA500"/>
+  <rect x="296" y="66"  width="18" height="84" rx="6" fill="#9E9E9E"/>
+  <text class="num" x="335" y="110" fill="#FFA500">156ms</text>
+  <text class="lbl" x="236" y="175">一般 100-300ms</text>
+
+  <!-- ===== 组3：离线，3根灰 + 红叉 ===== -->
+  <rect x="436" y="114" width="18" height="36" rx="6" fill="#9E9E9E"/>
+  <rect x="466" y="90"  width="18" height="60" rx="6" fill="#9E9E9E"/>
+  <rect x="496" y="66"  width="18" height="84" rx="6" fill="#9E9E9E"/>
+  <line x1="440" y1="70" x2="510" y2="140" stroke="#E53935" stroke-width="8" stroke-linecap="round"/>
+  <line x1="510" y1="70" x2="440" y2="140" stroke="#E53935" stroke-width="8" stroke-linecap="round"/>
+  <text class="num" x="535" y="110" fill="#E53935">离线</text>
+  <text class="lbl" x="436" y="175">离线 / 超时</text>
+</svg>
