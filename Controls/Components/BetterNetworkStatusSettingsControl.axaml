@@ -1,0 +1,104 @@
+<ci:ComponentBase
+    x:Class="BetterNetworkStatus.Controls.Components.BetterNetworkStatusSettingsControl"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ci="http://classisland.tech/schemas/xaml/core"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:BetterNetworkStatus.Controls.Components"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:settings="clr-namespace:BetterNetworkStatus.Models.ComponentSettings"
+    xmlns:converters="clr-namespace:BetterNetworkStatus.Converters"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:TypeArguments="settings:BetterNetworkStatusSettings"
+    mc:Ignorable="d">
+
+    <ci:ComponentBase.Resources>
+        <converters:EnumDescriptionConverter x:Key="EnumDescriptionConverter" />
+    </ci:ComponentBase.Resources>
+
+    <Grid
+        DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:BetterNetworkStatusSettingsControl}}">
+        <ScrollViewer>
+            <StackPanel Spacing="16" Margin="16">
+
+                <StackPanel Spacing="4">
+                    <TextBlock Text="延迟检测网址" FontWeight="SemiBold" />
+                    <TextBlock Text="要检测的目标地址，默认 https://www.baidu.com" FontSize="12" Opacity="0.7" />
+                    <TextBox MinWidth="220" Margin="0,4,0,0"
+                             Text="{Binding Settings.PingUrl, Mode=TwoWay}" />
+                </StackPanel>
+
+                <StackPanel Spacing="4">
+                    <TextBlock Text="检测模式" FontWeight="SemiBold" />
+                    <TextBlock Text="选择网络延迟检测方式" FontSize="12" Opacity="0.7" />
+                    <ComboBox MinWidth="140" Margin="0,4,0,0"
+                              SelectedItem="{Binding Settings.DetectMode, Mode=TwoWay}">
+                        <ComboBox.Items>
+                            <settings:NetworkDetectMode>Auto</settings:NetworkDetectMode>
+                            <settings:NetworkDetectMode>Icmp</settings:NetworkDetectMode>
+                            <settings:NetworkDetectMode>Http</settings:NetworkDetectMode>
+                        </ComboBox.Items>
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate DataType="{x:Type settings:NetworkDetectMode}">
+                                <TextBlock Text="{Binding Converter={StaticResource EnumDescriptionConverter}}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+
+                <StackPanel Spacing="4">
+                    <TextBlock Text="刷新间隔（秒）" FontWeight="SemiBold" />
+                    <TextBlock Text="检测延迟的时间间隔，范围 1-60" FontSize="12" Opacity="0.7" />
+                    <TextBox MinWidth="100" Margin="0,4,0,0"
+                             Text="{Binding Settings.RefreshIntervalSeconds, Mode=TwoWay}" />
+                </StackPanel>
+
+                <StackPanel Spacing="4">
+                    <TextBlock Text="显示样式" FontWeight="SemiBold" />
+                    <TextBlock Text="选择组件的显示方式" FontSize="12" Opacity="0.7" />
+                    <ComboBox MinWidth="160" Margin="0,4,0,0"
+                              SelectedItem="{Binding Settings.DisplayStyle, Mode=TwoWay}">
+                        <ComboBox.Items>
+                            <settings:SignalDisplayStyle>BarsOnly</settings:SignalDisplayStyle>
+                            <settings:SignalDisplayStyle>BarsWithNumber</settings:SignalDisplayStyle>
+                            <settings:SignalDisplayStyle>NumberOnly</settings:SignalDisplayStyle>
+                        </ComboBox.Items>
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate DataType="{x:Type settings:SignalDisplayStyle}">
+                                <TextBlock Text="{Binding Converter={StaticResource EnumDescriptionConverter}}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+
+                <StackPanel Spacing="4">
+                    <TextBlock Text="单色模式" FontWeight="SemiBold" />
+                    <TextBlock Text="开启后信号条使用白色，不随延迟变色" FontSize="12" Opacity="0.7" />
+                    <ToggleSwitch Margin="0,4,0,0"
+                                  IsChecked="{Binding Settings.UseMonochrome, Mode=TwoWay}" />
+                </StackPanel>
+
+                <StackPanel Spacing="4">
+                    <TextBlock Text="延迟阈值（毫秒）" FontWeight="SemiBold" />
+                    <TextBlock Text="自定义信号等级对应的延迟范围" FontSize="12" Opacity="0.7" />
+                    <StackPanel Orientation="Horizontal" Spacing="12" Margin="0,4,0,0">
+                        <StackPanel Spacing="2">
+                            <TextBlock Text="优秀（小于）" FontSize="12" />
+                            <TextBox MinWidth="80" Text="{Binding Settings.GoodThresholdMs, Mode=TwoWay}" />
+                        </StackPanel>
+                        <StackPanel Spacing="2">
+                            <TextBlock Text="良好（小于）" FontSize="12" />
+                            <TextBox MinWidth="80" Text="{Binding Settings.NormalThresholdMs, Mode=TwoWay}" />
+                        </StackPanel>
+                        <StackPanel Spacing="2">
+                            <TextBlock Text="较差（小于）" FontSize="12" />
+                            <TextBox MinWidth="80" Text="{Binding Settings.BadThresholdMs, Mode=TwoWay}" />
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</ci:ComponentBase>

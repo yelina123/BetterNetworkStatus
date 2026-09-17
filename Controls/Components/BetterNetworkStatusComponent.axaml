@@ -1,0 +1,65 @@
+<ci:ComponentBase
+    x:Class="BetterNetworkStatus.Controls.Components.BetterNetworkStatusComponent"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ci="http://classisland.tech/schemas/xaml/core"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:BetterNetworkStatus.Controls.Components"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:settings="clr-namespace:BetterNetworkStatus.Models.ComponentSettings"
+    d:DesignHeight="40"
+    d:DesignWidth="120"
+    x:TypeArguments="settings:BetterNetworkStatusSettings"
+    Loaded="Component_OnLoaded"
+    Unloaded="Component_OnUnloaded"
+    mc:Ignorable="d">
+
+    <Grid
+        DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=local:BetterNetworkStatusComponent}}"
+        VerticalAlignment="Center">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <!-- 信号条区域：三根矩形，底部对齐，高度依次增高 -->
+        <Grid Grid.Column="0"
+              VerticalAlignment="Center"
+              IsVisible="{Binding ShowBars}">
+            <StackPanel Orientation="Horizontal"
+                        Spacing="2"
+                        VerticalAlignment="Bottom">
+                <Border Width="3" Height="6"
+                        CornerRadius="1"
+                        VerticalAlignment="Bottom"
+                        Background="{Binding Bar1Brush}" />
+                <Border Width="3" Height="10"
+                        CornerRadius="1"
+                        VerticalAlignment="Bottom"
+                        Background="{Binding Bar2Brush}" />
+                <Border Width="3" Height="14"
+                        CornerRadius="1"
+                        VerticalAlignment="Bottom"
+                        Background="{Binding Bar3Brush}" />
+            </StackPanel>
+
+            <!-- 无网络红叉 -->
+            <Path IsVisible="{Binding IsOffline}"
+                  Data="M1,1 L12,13 M12,1 L1,13"
+                  Stroke="#FFE53935"
+                  StrokeThickness="2"
+                  StrokeLineCap="Round"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch" />
+        </Grid>
+
+        <!-- 数字延迟区域 -->
+        <TextBlock Grid.Column="1"
+                   Margin="6,0,0,0"
+                   VerticalAlignment="Center"
+                   FontSize="{DynamicResource MainWindowBodyFontSize}"
+                   Text="{Binding DelayText}"
+                   Foreground="{Binding SignalBrush}"
+                   IsVisible="{Binding ShowNumber}" />
+    </Grid>
+</ci:ComponentBase>
